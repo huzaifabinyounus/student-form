@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Institute of Space Technology (IST) - Academic Portal & Group Form</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ist: {
+                            navy: '#002147',
+                            blue: '#1E3A8A',
+                            gold: '#D97706',
+                            goldlight: '#FBBF24',
+                            slate: '#F8FAFC',
+                            card: '#FFFFFF',
+                            text: '#1E293B'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; color: #1e293b; }
+        .ist-gradient { background: linear-gradient(135deg, #002147 0%, #1E3A8A 60%, #0f172a 100%); }
+        .gold-gradient { background: linear-gradient(135deg, #D97706 0%, #FBBF24 100%); }
+        .custom-shadow { box-shadow: 0 10px 25px -5px rgba(0, 33, 71, 0.08), 0 8px 10px -6px rgba(0, 33, 71, 0.05); }
+        .form-input-focus:focus { border-color: #002147; ring: 2px; ring-color: rgba(0, 33, 71, 0.2); outline: none; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+    <!-- Top University Announcement Bar -->
+    <div class="bg-amber-600 text-white text-xs font-semibold py-1.5 px-4 flex justify-between items-center px-6">
+        <span class="hidden sm:inline"><i class="fas fa-university mr-2"></i>Institute of Space Technology, Islamabad &bull; Academic Portal</span>
+        <span class="mx-auto sm:mx-0"><i class="fas fa-check-circle text-emerald-300 mr-1"></i> Live Google Sheets Auto-Sync Connected</span>
+        <button onclick="toggleModal('gasGuideModal')" class="underline hover:text-amber-100 transition text-xs font-bold">
+            <i class="fas fa-code mr-1"></i> Apps Script Code
+        </button>
+    </div>
+
+    <!-- Main Header / Navigation -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                
+                <!-- IST Logo & Branding -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('home')">
+                    <div class="w-12 h-12 rounded-full bg-ist-navy text-white flex items-center justify-center font-bold text-xl shadow-md border-2 border-amber-500">
+                        <svg class="w-8 h-8 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-extrabold text-ist-navy tracking-tight leading-none uppercase sm:text-xl">
+                            Institute of Space Technology
+                        </h1>
+                        <p class="text-xs font-semibold text-amber-600 tracking-wider uppercase mt-1">Islamabad &bull; Academic Portal</p>
+                    </div>
+                </div>
+
+                <!-- Navigation Tabs (Desktop) -->
+                <nav class="hidden xl:flex items-center space-x-1">
+                    <button onclick="switchTab('home')" id="nav-home" class="nav-btn text-xs font-semibold uppercase tracking-wider px-2.5 py-2 rounded-lg text-gray-700 hover:bg-gray-100 transition">
+                        <i class="fas fa-home mr-1"></i> Home
+                    </button>
+                    <button onclick="switchTab('genetics')" id="nav-genetics" class="nav-btn text-xs font-semibold uppercase tracking-wider px-2.5 py-2 rounded-lg text-gray-700 hover:bg-gray-100 transition">
+                        Genetics
+                    </button>
+                    <button onclick="switchTab('quran')" id="nav-quran" class="nav-btn text-xs font-semibold uppercase tracking-wider px-2.5 py-2 rounded-lg text-gray-700 hover:bg-gray-100 transition">
+                        Fehm-e-Quran
+                    </button>
+                    <button onclick="switchTab('chemistry')" id="nav-chemistry" class="nav-btn text-xs font-semibold uppercase tracking-wider px-2.5 py-2 rounded-lg text-gray-700 hover:bg-gray-100 transition">
+                        Physical Chemistry
+                    </button>
+                    <button onclick="switchTab('biophysics')" id="nav-biophysics" class="nav-btn text-xs font-semibold uppercase tracking-wider px-2.5 py-2 rounded-lg text-gray-700 hover:bg-gray-100 transition">
+                        Biophysics
+                    </button>
+                    <button onclick="switchTab('expository')" id="nav-expository" class="nav-btn text-xs font-semibold uppercase tracking-wider px-2.5 py-2 rounded-lg text-gray-700 hover:bg-gray-100 transition">
+                        Expository Writing
+                    </button>
+                    <button onclick="switchTab('biochemistry')" id="nav-biochemistry" class="nav-btn text-xs font-semibold uppercase tracking-wider px-2.5 py-2 rounded-lg text-teal-800 bg-teal-50 hover:bg-teal-100 border border-teal-200 transition">
+                        <i class="fas fa-microscope mr-1 text-teal-600"></i> Biochem II
+                    </button>
+                    <button onclick="switchTab('responses')" id="nav-responses" class="nav-btn text-xs font-semibold uppercase tracking-wider px-2.5 py-2 rounded-lg bg-amber-50 text-amber-700 hover:bg-amber-100 border border-amber-200 transition">
+                        <i class="fas fa-lock mr-1 text-amber-600"></i> Responses
+                    </button>
+                </nav>
+
+                <!-- Mobile Navigation Toggle -->
+                <div class="xl:hidden flex items-center">
+                    <button onclick="toggleMobileMenu()" class="text-gray-700 hover:text-ist-navy focus:outline-none p-2">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Menu -->
+        <div id="mobileMenu" class="hidden xl:hidden bg-white border-t border-gray-200 px-4 pt-2 pb-4 space-y-2">
+            <button onclick="switchTab('home')" class="block w-full text-left px-3 py-2 rounded-md font-medium text-gray-700 hover:bg-gray-100">Home Portal</button>
+            <button onclick="switchTab('genetics')" class="block w-full text-left px-3 py-2 rounded-md font-medium text-gray-700 hover:bg-gray-100">Principle of Genetics</button>
+            <button onclick="switchTab('quran')" class="block w-full text-left px-3 py-2 rounded-md font-medium text-gray-700 hover:bg-gray-100">Fehm-e-Quran</button>
+            <button onclick="switchTab('chemistry')" class="block w-full text-left px-3 py-2 rounded-md font-medium text-gray-700 hover:bg-gray-100">Physical Chemistry</button>
+            <button onclick="switchTab('biophysics')" class="block w-full text-left px-3 py-2 rounded-md font-medium text-gray-700 hover:bg-gray-100">Biophysics</button>
+            <button onclick="switchTab('expository')" class="block w-full text-left px-3 py-2 rounded-md font-medium text-gray-700 hover:bg-gray-100">Expository Writing</button>
+            <button onclick="switchTab('biochemistry')" class="block w-full text-left px-3 py-2 rounded-md font-bold text-teal-800 bg-teal-50">Biochemistry II (Article / Group Project)</button>
+            <button onclick="switchTab('responses')" class="block w-full text-left px-3 py-2 rounded-md font-semibold text-amber-700 bg-amber-50 border border-amber-200">Owner Responses Portal</button>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- ================= HOME / PORTAL OVERVIEW ================= -->
+        <section id="view-home" class="tab-view space-y-8">
+            <!-- Hero Banner -->
+            <div class="ist-gradient text-white rounded-2xl p-8 sm:p-12 relative overflow-hidden custom-shadow">
+                <div class="absolute right-0 top-0 opacity-10 transform translate-x-12 -translate-y-6 pointer-events-none">
+                    <i class="fas fa-satellite text-[240px]"></i>
+                </div>
+                <div class="max-w-2xl relative z-10 space-y-4">
+                    <span class="bg-amber-500/20 text-amber-300 border border-amber-400/30 text-xs font-semibold uppercase px-3 py-1 rounded-full inline-block">
+                        Semester Registration Portal
+                    </span>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight">Academic Group & Project Portal</h2>
+                    <p class="text-blue-100 text-sm sm:text-base leading-relaxed">
+                        Welcome to the official Institute of Space Technology academic portal. Select your enrolled subject below to register your presentation group, article submissions, team members, and selected research topics. All submissions auto-sync directly to Google Sheets across all devices.
+                    </p>
+                    <div class="pt-2 flex flex-wrap gap-3">
+                        <button onclick="switchTab('biochemistry')" class="gold-gradient text-gray-900 font-bold px-5 py-2.5 rounded-xl text-sm shadow-md hover:opacity-90 transition">
+                            <i class="fas fa-microscope mr-2"></i> Register Biochemistry II
+                        </button>
+                        <button onclick="switchTab('genetics')" class="bg-white/10 hover:bg-white/20 text-white font-medium px-5 py-2.5 rounded-xl text-sm border border-white/20 transition">
+                            <i class="fas fa-dna mr-2"></i> Principle of Genetics
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subjects Grid -->
+            <div>
+                <h3 class="text-xl font-bold text-ist-navy mb-6 flex items-center">
+                    <i class="fas fa-book-open text-amber-500 mr-2"></i> Active Academic Subjects
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                    <!-- Subject Card: Biochemistry II -->
+                    <div class="bg-gradient-to-br from-teal-50/60 to-white rounded-2xl p-6 border-2 border-teal-300 custom-shadow hover:border-teal-500 transition flex flex-col justify-between group relative">
+                        <span class="absolute top-4 right-4 bg-teal-600 text-white text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full">
+                            Article / Project
+                        </span>
+                        <div>
+                            <div class="w-12 h-12 bg-teal-100 text-teal-700 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-teal-600 group-hover:text-white transition">
+                                <i class="fas fa-microscope"></i>
+                            </div>
+                            <h4 class="text-lg font-bold text-ist-navy">Biochemistry II</h4>
+                            <p class="text-xs text-teal-700 font-semibold mb-3">Course Code: BCH-302</p>
+                            <p class="text-sm text-gray-600 mb-6">Choose submission option between <strong>Article</strong> or <strong>Group Project</strong> with dynamic group size control.</p>
+                        </div>
+                        <button onclick="switchTab('biochemistry')" class="w-full bg-teal-700 text-white text-sm font-semibold py-2.5 rounded-xl hover:bg-teal-800 transition flex items-center justify-center">
+                            Open Form <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Subject Card: Principle of Genetics -->
+                    <div class="bg-white rounded-2xl p-6 border border-gray-100 custom-shadow hover:border-amber-400 transition flex flex-col justify-between group">
+                        <div>
+                            <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-amber-500 group-hover:text-white transition">
+                                <i class="fas fa-dna"></i>
+                            </div>
+                            <h4 class="text-lg font-bold text-ist-navy">Principle of Genetics</h4>
+                            <p class="text-xs text-amber-600 font-semibold mb-3">Course Code: BIO-301</p>
+                            <p class="text-sm text-gray-600 mb-6">Register 1 to 10 member teams for semester research presentations and genetic modeling projects.</p>
+                        </div>
+                        <button onclick="switchTab('genetics')" class="w-full bg-ist-navy text-white text-sm font-semibold py-2.5 rounded-xl hover:bg-blue-900 transition flex items-center justify-center">
+                            Open Form <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                        </button>
+                    </div>
+
+                    <!-- Subject Card: Fehm-e-Quran -->
+                    <div class="bg-white rounded-2xl p-6 border border-gray-100 custom-shadow hover:border-amber-400 transition flex flex-col justify-between group">
+                        <div>
+                            <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-emerald-600 group-hover:text-white transition">
+                                <i class="fas fa-quran"></i>
+                            </div>
+                            <h4 class="text-lg font-bold text-ist-navy">Fehm-e-Quran</h4>
+                            <p class="text-xs text-emerald-600 font-semibold mb-3">Course Code: ISL-102</p>
+                            <p class="text-sm text-gray-600 mb-6">Group presentation registration for Islamic studies, ethical frameworks, and textual analyses.</p>
+                        </div>
+                        <button onclick="switchTab('quran')" class="w-full bg-ist-navy text-white text-sm font-semibold py-2.5 rounded-xl hover:bg-blue-900 transition flex items-center justify-center">
+                            Open Form <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                        </button>
+                    </div>
+
+                    <!-- Subject Card: Physical Chemistry -->
+                    <div class="bg-white rounded-2xl p-6 border border-gray-100 custom-shadow hover:border-amber-400 transition flex flex-col justify-between group">
+                        <div>
+                            <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-blue-600 group-hover:text-white transition">
+                                <i class="fas fa-flask"></i>
+                            </div>
+                            <h4 class="text-lg font-bold text-ist-navy">Physical Chemistry</h4>
+                            <p class="text-xs text-blue-600 font-semibold mb-3">Course Code: CHM-204</p>
+                            <p class="text-sm text-gray-600 mb-6">Thermodynamics, kinetics, and quantum chemistry presentation team submissions.</p>
+                        </div>
+                        <button onclick="switchTab('chemistry')" class="w-full bg-ist-navy text-white text-sm font-semibold py-2.5 rounded-xl hover:bg-blue-900 transition flex items-center justify-center">
+                            Open Form <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                        </button>
+                    </div>
+
+                    <!-- Subject Card: Biophysics -->
+                    <div class="bg-white rounded-2xl p-6 border border-gray-100 custom-shadow hover:border-amber-400 transition flex flex-col justify-between group">
+                        <div>
+                            <div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-purple-600 group-hover:text-white transition">
+                                <i class="fas fa-atom"></i>
+                            </div>
+                            <h4 class="text-lg font-bold text-ist-navy">Biophysics</h4>
+                            <p class="text-xs text-purple-600 font-semibold mb-3">Course Code: PHY-310</p>
+                            <p class="text-sm text-gray-600 mb-6">Group registration for biomechanics, molecular biophysics, and membrane potential topics.</p>
+                        </div>
+                        <button onclick="switchTab('biophysics')" class="w-full bg-ist-navy text-white text-sm font-semibold py-2.5 rounded-xl hover:bg-blue-900 transition flex items-center justify-center">
+                            Open Form <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                        </button>
+                    </div>
+
+                    <!-- Subject Card: Expository Writing -->
+                    <div class="bg-white rounded-2xl p-6 border border-gray-100 custom-shadow hover:border-amber-400 transition flex flex-col justify-between group">
+                        <div>
+                            <div class="w-12 h-12 bg-rose-50 text-rose-600 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:bg-rose-600 group-hover:text-white transition">
+                                <i class="fas fa-pen-nib"></i>
+                            </div>
+                            <h4 class="text-lg font-bold text-ist-navy">Expository Writing</h4>
+                            <p class="text-xs text-rose-600 font-semibold mb-3">Course Code: ENG-101</p>
+                            <p class="text-sm text-gray-600 mb-6">Academic essay defenses, technical rhetoric, and argumentative presentation group setup.</p>
+                        </div>
+                        <button onclick="switchTab('expository')" class="w-full bg-ist-navy text-white text-sm font-semibold py-2.5 rounded-xl hover:bg-blue-900 transition flex items-center justify-center">
+                            Open Form <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= DYNAMIC FORM CONTAINER ================= -->
+        <section id="view-form" class="tab-view hidden max-w-4xl mx-auto space-y-6">
+            
+            <div class="bg-white rounded-3xl border border-gray-100 custom-shadow overflow-hidden">
+                <div class="ist-gradient p-6 sm:p-8 text-white relative">
+                    <div class="flex items-center justify-between relative z-10">
+                        <div>
+                            <span id="formSubjectBadge" class="bg-amber-500 text-gray-900 font-bold text-xs uppercase px-3 py-1 rounded-full inline-block mb-2">
+                                Principle of Genetics
+                            </span>
+                            <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Group Registration & Submission Form</h2>
+                            <p class="text-blue-100 text-xs sm:text-sm mt-1 max-w-2xl">
+                                Please enter your group or submission details below. Select the required member count to dynamically update student fields.
+                            </p>
+                        </div>
+                        <div class="hidden sm:block text-amber-400 opacity-80 text-6xl">
+                            <i class="fas fa-users-line"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Body -->
+                <form id="presentationForm" onsubmit="handleFormSubmit(event)" class="p-6 sm:p-8 space-y-8">
+                    
+                    <input type="hidden" id="selectedSubjectInput" name="subject" value="Principle of Genetics">
+
+                    <!-- Section 1: Basic Information -->
+                    <div class="space-y-4">
+                        <div class="flex items-center border-b pb-2 border-gray-200">
+                            <i class="fas fa-info-circle text-amber-500 text-lg mr-2"></i>
+                            <h3 class="text-lg font-bold text-ist-navy">Section 1 — Basic Information & Option</h3>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <!-- Submission Option -->
+                            <div id="submissionTypeContainer">
+                                <label class="block text-xs font-bold text-ist-navy uppercase tracking-wider mb-1">
+                                    Submission Type <span class="text-red-500">*</span>
+                                </label>
+                                <select id="submissionTypeSelect" class="w-full px-4 py-2.5 rounded-xl border-2 border-amber-400 bg-white text-ist-navy font-bold text-sm focus:outline-none focus:ring-2 focus:ring-amber-500">
+                                    <option value="Presentation">Presentation</option>
+                                    <option value="Article">Article Submission</option>
+                                    <option value="Group Project">Group Project</option>
+                                </select>
+                            </div>
+
+                            <!-- Group Number/Name -->
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                                    Group Number / Name <span class="text-gray-400 font-normal">(Optional)</span>
+                                </label>
+                                <input type="text" id="groupName" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-sm form-input-focus" placeholder="e.g. Group 4 / Bio Pioneers">
+                            </div>
+
+                            <!-- Topic -->
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                                    Topic / Title <span class="text-gray-400 font-normal">(Optional)</span>
+                                </label>
+                                <input type="text" id="presentationTopic" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-sm form-input-focus" placeholder="e.g. Enzyme Kinetics in Bio-energetics">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: Dynamic Member Selection -->
+                    <div class="space-y-4">
+                        <div class="flex items-center border-b pb-2 border-gray-200">
+                            <i class="fas fa-user-plus text-amber-500 text-lg mr-2"></i>
+                            <h3 class="text-lg font-bold text-ist-navy">Section 2 — Dynamic Member Selection</h3>
+                        </div>
+
+                        <div class="bg-amber-50/50 border border-amber-200 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                            <div>
+                                <label for="memberCountSelect" class="block text-sm font-bold text-ist-navy">
+                                    Select Number of Group Members <span class="text-red-500">*</span>
+                                </label>
+                                <p class="text-xs text-gray-600 mt-0.5">Dynamically generates name and roll number input fields for each member.</p>
+                            </div>
+                            <div class="w-full sm:w-48">
+                                <select id="memberCountSelect" onchange="renderDynamicMemberFields()" class="w-full px-4 py-2.5 rounded-xl border-2 border-amber-400 bg-white text-ist-navy font-bold text-sm focus:outline-none focus:ring-2 focus:ring-amber-500">
+                                    <option value="1">1 Member</option>
+                                    <option value="2">2 Members</option>
+                                    <option value="3">3 Members</option>
+                                    <option value="4" selected>4 Members (Standard)</option>
+                                    <option value="5">5 Members</option>
+                                    <option value="6">6 Members</option>
+                                    <option value="7">7 Members</option>
+                                    <option value="8">8 Members</option>
+                                    <option value="9">9 Members</option>
+                                    <option value="10">10 Members</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 3: Dynamically Generated Member Inputs -->
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between border-b pb-2 border-gray-200">
+                            <div class="flex items-center">
+                                <i class="fas fa-id-card text-amber-500 text-lg mr-2"></i>
+                                <h3 class="text-lg font-bold text-ist-navy">Section 3 — Group Member Details</h3>
+                            </div>
+                            <span id="memberCountBadge" class="text-xs font-bold text-amber-700 bg-amber-100 px-2.5 py-1 rounded-full">
+                                4 Members Required
+                            </span>
+                        </div>
+
+                        <!-- Dynamic Container -->
+                        <div id="dynamicMembersContainer" class="space-y-4">
+                            <!-- Injected by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Validation Alert -->
+                    <div id="formErrorAlert" class="hidden bg-red-50 border border-red-200 text-red-700 p-4 rounded-xl text-sm flex items-start space-x-3">
+                        <i class="fas fa-exclamation-circle text-lg mt-0.5 flex-shrink-0"></i>
+                        <div id="formErrorMessage">Please complete all required student fields correctly.</div>
+                    </div>
+
+                    <!-- Form Buttons -->
+                    <div class="pt-4 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <p class="text-xs text-gray-500 flex items-center">
+                            <i class="fas fa-cloud-upload-alt text-emerald-600 mr-1.5 text-sm"></i>
+                            Submissions auto-sync live to central Google Sheets.
+                        </p>
+                        <div class="flex items-center space-x-3 w-full sm:w-auto">
+                            <button type="button" onclick="switchTab('home')" class="w-1/2 sm:w-auto px-5 py-2.5 border border-gray-300 rounded-xl text-sm font-semibold text-gray-700 hover:bg-gray-50 transition">
+                                Cancel
+                            </button>
+                            <button type="submit" id="submitBtn" class="w-1/2 sm:w-auto px-8 py-2.5 bg-ist-navy text-white rounded-xl text-sm font-bold shadow-md hover:bg-blue-900 transition flex items-center justify-center">
+                                <span id="submitBtnText"><i class="fas fa-paper-plane mr-2"></i> Submit Registration</span>
+                                <span id="submitBtnSpinner" class="hidden"><i class="fas fa-circle-notch fa-spin mr-2"></i> Syncing to Sheet...</span>
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </section>
+
+        <!-- ================= OWNER RESPONSES VIEW ================= -->
+        <section id="view-responses" class="tab-view hidden space-y-6">
+            
+            <div class="bg-white rounded-2xl p-6 border border-gray-200 custom-shadow flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <div class="flex items-center space-x-2">
+                        <span class="bg-amber-100 text-amber-800 text-xs font-bold px-2.5 py-1 rounded-md uppercase">Owner / Admin Portal</span>
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2.5 py-1 rounded-md flex items-center">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 mr-1.5"></span> Direct GAS Sync
+                        </span>
+                    </div>
+                    <h2 class="text-2xl font-bold text-ist-navy mt-1">Group & Submission Responses</h2>
+                    <p class="text-xs text-gray-500 mt-0.5">Centralized live response dashboard for Institute of Space Technology instructors.</p>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-2">
+                    <button onclick="toggleModal('gasGuideModal')" class="px-4 py-2 bg-amber-500 text-gray-900 rounded-xl text-xs font-bold hover:bg-amber-400 transition flex items-center">
+                        <i class="fas fa-code mr-1.5"></i> Apps Script Code
+                    </button>
+                    <button onclick="exportToCSV()" class="px-4 py-2 bg-emerald-600 text-white rounded-xl text-xs font-bold hover:bg-emerald-700 transition flex items-center">
+                        <i class="fas fa-file-excel mr-1.5"></i> Export CSV
+                    </button>
+                    <button onclick="clearAllResponses()" class="px-3 py-2 bg-red-50 text-red-600 border border-red-200 rounded-xl text-xs font-semibold hover:bg-red-100 transition">
+                        <i class="fas fa-trash-alt mr-1"></i> Clear Local Cache
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div class="bg-white rounded-2xl p-5 border border-gray-100 custom-shadow flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Registered Groups</p>
+                        <p id="statTotalGroups" class="text-3xl font-extrabold text-ist-navy mt-1">0</p>
+                    </div>
+                    <div class="w-12 h-12 bg-blue-50 text-ist-navy rounded-xl flex items-center justify-center text-xl">
+                        <i class="fas fa-users"></i>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-5 border border-gray-100 custom-shadow flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Total Students Enrolled</p>
+                        <p id="statTotalStudents" class="text-3xl font-extrabold text-amber-600 mt-1">0</p>
+                    </div>
+                    <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center text-xl">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-5 border border-gray-100 custom-shadow flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Active Subjects</p>
+                        <p id="statActiveSubjects" class="text-3xl font-extrabold text-emerald-600 mt-1">6</p>
+                    </div>
+                    <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-xl">
+                        <i class="fas fa-book font-bold"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search and Filter Bar -->
+            <div class="bg-white rounded-2xl p-4 border border-gray-200 custom-shadow flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="relative w-full md:w-80">
+                    <i class="fas fa-search absolute left-3.5 top-3 text-gray-400 text-sm"></i>
+                    <input type="text" id="searchInput" oninput="filterResponsesTable()" placeholder="Search roll no, member name, topic..." class="w-full pl-10 pr-4 py-2 rounded-xl border border-gray-300 text-xs form-input-focus">
+                </div>
+
+                <div class="flex items-center space-x-3 w-full md:w-auto">
+                    <select id="subjectFilter" onchange="filterResponsesTable()" class="px-3 py-2 rounded-xl border border-gray-300 text-xs text-gray-700 bg-white font-medium focus:outline-none">
+                        <option value="ALL">All Subjects</option>
+                        <option value="Biochemistry II">Biochemistry II</option>
+                        <option value="Principle of Genetics">Principle of Genetics</option>
+                        <option value="Fehm-e-Quran">Fehm-e-Quran</option>
+                        <option value="Physical Chemistry">Physical Chemistry</option>
+                        <option value="Biophysics">Biophysics</option>
+                        <option value="Expository Writing">Expository Writing</option>
+                    </select>
+
+                    <button onclick="renderResponsesTable()" class="px-3 py-2 bg-gray-100 text-gray-700 rounded-xl text-xs font-semibold hover:bg-gray-200 transition">
+                        <i class="fas fa-sync-alt mr-1"></i> Refresh Table
+                    </button>
+                </div>
+            </div>
+
+            <!-- Responses Table -->
+            <div class="bg-white rounded-2xl border border-gray-200 custom-shadow overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs">
+                        <thead class="bg-ist-navy text-white uppercase text-[10px] tracking-wider font-bold">
+                            <tr>
+                                <th class="p-3.5">Timestamp</th>
+                                <th class="p-3.5">Subject</th>
+                                <th class="p-3.5">Option</th>
+                                <th class="p-3.5">Group</th>
+                                <th class="p-3.5">Topic</th>
+                                <th class="p-3.5">Count</th>
+                                <th class="p-3.5">Members & Roll Numbers</th>
+                                <th class="p-3.5 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="responsesTableBody" class="divide-y divide-gray-200 text-gray-700">
+                            <!-- Dynamic Content -->
+                        </tbody>
+                    </table>
+                </div>
+                <div id="emptyTableState" class="p-12 text-center hidden">
+                    <i class="fas fa-folder-open text-4xl text-gray-300 mb-3"></i>
+                    <p class="text-sm font-semibold text-gray-600">No local cache entries for this session.</p>
+                    <p class="text-xs text-gray-400 mt-1">All registrations are sent directly to your Google Sheet live in real time.</p>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- ================= SUBMISSION CONFIRMATION MODAL ================= -->
+    <div id="confirmationModal" class="fixed inset-0 bg-ist-navy/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-md w-full p-8 text-center custom-shadow border border-amber-200 transform transition-all">
+            <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3 class="text-xl font-extrabold text-ist-navy mb-2">Registration Confirmed!</h3>
+            <p class="text-xs text-gray-600 leading-relaxed mb-4">
+                Your group has been successfully registered and saved directly to Google Sheets.
+            </p>
+
+            <div id="receiptSummary" class="bg-gray-50 border border-gray-200 rounded-2xl p-4 text-left text-xs mb-6 space-y-1.5 text-gray-700">
+                <!-- Receipt details populated via JavaScript -->
+            </div>
+
+            <div class="space-y-2">
+                <button onclick="closeModal('confirmationModal'); switchTab('biochemistry');" class="w-full bg-ist-navy text-white font-bold py-2.5 rounded-xl text-xs hover:bg-blue-900 transition">
+                    Register Another Group
+                </button>
+                <button onclick="closeModal('confirmationModal'); switchTab('responses');" class="w-full border border-gray-300 text-gray-700 font-semibold py-2.5 rounded-xl text-xs hover:bg-gray-100 transition">
+                    View Local Responses
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= GOOGLE APPS SCRIPT CODE MODAL ================= -->
+    <div id="gasGuideModal" class="fixed inset-0 bg-ist-navy/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 custom-shadow border border-amber-300 space-y-6">
+            
+            <div class="flex justify-between items-start border-b pb-4 border-gray-200">
+                <div>
+                    <span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase">Google Apps Script Backend</span>
+                    <h3 class="text-xl font-bold text-ist-navy mt-1">Backend Code Reference</h3>
+                </div>
+                <button onclick="closeModal('gasGuideModal')" class="text-gray-400 hover:text-gray-600 p-1">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+
+            <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 text-xs text-emerald-800">
+                <i class="fas fa-check-circle mr-1 text-emerald-600 font-bold"></i>
+                <strong>Hardcoded Active Web App URL:</strong><br>
+                <code class="block bg-white p-2 rounded border border-emerald-300 text-[11px] font-mono text-emerald-900 mt-1 break-all select-all">
+                    https://script.google.com/macros/s/AKfycbzxWGR8AUqHN1rOrP8smvhHzDQ-nHlGnTCg6pD-9i1-wh7jfYFi-IahbZeX7DpTizLq/exec
+                </code>
+            </div>
+
+            <!-- GAS Code Snippet Box -->
+            <div class="space-y-2">
+                <div class="flex justify-between items-center">
+                    <h4 class="font-bold text-ist-navy text-xs uppercase tracking-wider">Apps Script Code (`Code.gs`):</h4>
+                    <button onclick="copyGasCode()" class="bg-ist-navy text-white px-3 py-1 rounded-lg text-xs font-bold hover:bg-blue-900 transition">
+                        <i class="fas fa-copy mr-1"></i> Copy Code
+                    </button>
+                </div>
+                <pre class="bg-gray-900 text-emerald-400 p-4 rounded-xl text-[11px] overflow-x-auto font-mono leading-relaxed max-h-60" id="gasCodeText">
+function doPost(e) {
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    
+    // Auto-create Header Row if sheet is empty
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow([
+        "Timestamp", "Subject", "Submission Type", "Group Name", "Topic", "Member Count",
+        "Member 1 Name", "Member 1 Roll",
+        "Member 2 Name", "Member 2 Roll",
+        "Member 3 Name", "Member 3 Roll",
+        "Member 4 Name", "Member 4 Roll",
+        "Member 5 Name", "Member 5 Roll",
+        "Member 6 Name", "Member 6 Roll",
+        "Member 7 Name", "Member 7 Roll",
+        "Member 8 Name", "Member 8 Roll",
+        "Member 9 Name", "Member 9 Roll",
+        "Member 10 Name", "Member 10 Roll"
+      ]);
+    }
+
+    var data = JSON.parse(e.postData.contents);
+    
+    var row = [
+      data.timestamp || new Date().toISOString(),
+      data.subject || "",
+      data.submissionType || "Presentation",
+      data.groupName || "N/A",
+      data.topic || "N/A",
+      data.memberCount || 0
+    ];
+
+    // Append up to 10 member details
+    for (var i = 0; i < 10; i++) {
+      if (data.members && data.members[i]) {
+        row.push(data.members[i].name || "");
+        row.push(data.members[i].roll || "");
+      } else {
+        row.push("");
+        row.push("");
+      }
+    }
+
+    sheet.appendRow(row);
+
+    return ContentService.createTextOutput(JSON.stringify({"result": "success"}))
+      .setMimeType(ContentService.MimeType.JSON);
+
+  } catch (err) {
+    return ContentService.createTextOutput(JSON.stringify({"result": "error", "error": err.toString()}))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}</pre>
+            </div>
+
+            <div class="pt-2 text-right">
+                <button onclick="closeModal('gasGuideModal')" class="px-5 py-2 bg-ist-navy text-white text-xs font-bold rounded-xl hover:bg-blue-900 transition">
+                    Close Window
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-ist-navy text-white border-t border-blue-900 mt-12 py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-blue-200 space-y-3 sm:space-y-0">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-university text-amber-400"></i>
+                <span>&copy; 2026 Institute of Space Technology (IST), Islamabad. All Rights Reserved.</span>
+            </div>
+            <div class="flex space-x-4 text-blue-300">
+                <a href="#" onclick="switchTab('home'); return false;" class="hover:text-amber-400">Academic Portal</a>
+                <span>&bull;</span>
+                <a href="#" onclick="toggleModal('gasGuideModal'); return false;" class="hover:text-amber-400">Google Script Config</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ================= JAVASCRIPT LOGIC ================= -->
+    <script>
+        // HARDCODED GOOGLE APPS SCRIPT WEB APP URL
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzxWGR8AUqHN1rOrP8smvhHzDQ-nHlGnTCg6pD-9i1-wh7jfYFi-IahbZeX7DpTizLq/exec';
+
+        // APPLICATION STATE
+        let activeTab = 'home';
+        let responses = [];
+
+        // Subject Mapping for Navigation
+        const subjectTitles = {
+            'biochemistry': 'Biochemistry II',
+            'genetics': 'Principle of Genetics',
+            'quran': 'Fehm-e-Quran',
+            'chemistry': 'Physical Chemistry',
+            'biophysics': 'Biophysics',
+            'expository': 'Expository Writing'
+        };
+
+        // Initialize Application on Window Load
+        window.onload = function() {
+            renderDynamicMemberFields();
+        };
+
+        function switchTab(tabKey) {
+            document.querySelectorAll('.tab-view').forEach(view => view.classList.add('hidden'));
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-ist-navy', 'text-white');
+                btn.classList.add('text-gray-700');
+            });
+
+            if (tabKey === 'home') {
+                document.getElementById('view-home').classList.remove('hidden');
+                setNavActive('nav-home');
+            } 
+            else if (tabKey === 'responses') {
+                document.getElementById('view-responses').classList.remove('hidden');
+                setNavActive('nav-responses');
+                renderResponsesTable();
+            } 
+            else if (subjectTitles[tabKey]) {
+                const subjectName = subjectTitles[tabKey];
+                document.getElementById('view-form').classList.remove('hidden');
+                document.getElementById('formSubjectBadge').textContent = subjectName;
+                document.getElementById('selectedSubjectInput').value = subjectName;
+
+                const submissionSelect = document.getElementById('submissionTypeSelect');
+                if (tabKey === 'biochemistry') {
+                    submissionSelect.value = 'Article';
+                } else {
+                    submissionSelect.value = 'Presentation';
+                }
+
+                setNavActive(`nav-${tabKey}`);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            document.getElementById('mobileMenu').classList.add('hidden');
+        }
+
+        function setNavActive(navId) {
+            const el = document.getElementById(navId);
+            if (el) {
+                el.classList.remove('text-gray-700');
+                el.classList.add('bg-ist-navy', 'text-white');
+            }
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('hidden');
+        }
+
+        function renderDynamicMemberFields() {
+            const count = parseInt(document.getElementById('memberCountSelect').value) || 4;
+            const container = document.getElementById('dynamicMembersContainer');
+            document.getElementById('memberCountBadge').textContent = `${count} ${count === 1 ? 'Member' : 'Members'} Required`;
+
+            let html = '';
+
+            for (let i = 1; i <= count; i++) {
+                html += `
+                    <div class="p-4 sm:p-5 rounded-2xl border border-gray-200 bg-gray-50/70 hover:bg-white hover:border-amber-300 transition space-y-3">
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="font-extrabold text-ist-navy uppercase tracking-wider flex items-center">
+                                <span class="w-6 h-6 rounded-full bg-ist-navy text-white text-xs flex items-center justify-center mr-2">${i}</span>
+                                Member ${i} Information
+                            </span>
+                            <span class="text-red-500 font-bold">* Required</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-[11px] font-bold text-gray-600 uppercase mb-1">
+                                    Member ${i} — Full Name
+                                </label>
+                                <input type="text" id="member_${i}_name" required
+                                    class="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs form-input-focus bg-white" 
+                                    placeholder="Enter full name">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-gray-600 uppercase mb-1">
+                                    Member ${i} — Roll Number
+                                </label>
+                                <input type="text" id="member_${i}_roll" required
+                                    class="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs form-input-focus bg-white" 
+                                    placeholder="e.g. 2109010${i}">
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            container.innerHTML = html;
+        }
+
+        async function handleFormSubmit(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const submitBtnText = document.getElementById('submitBtnText');
+            const submitBtnSpinner = document.getElementById('submitBtnSpinner');
+            const errorAlert = document.getElementById('formErrorAlert');
+            const errorMessage = document.getElementById('formErrorMessage');
+
+            errorAlert.classList.add('hidden');
+
+            const count = parseInt(document.getElementById('memberCountSelect').value);
+            const subject = document.getElementById('selectedSubjectInput').value;
+            const submissionType = document.getElementById('submissionTypeSelect').value;
+            const groupName = document.getElementById('groupName').value.trim() || `Group ${Math.floor(10 + Math.random() * 90)}`;
+            const topic = document.getElementById('presentationTopic').value.trim() || 'Topic Pending Approval';
+
+            let members = [];
+            let isValid = true;
+
+            for (let i = 1; i <= count; i++) {
+                const nameInput = document.getElementById(`member_${i}_name`);
+                const rollInput = document.getElementById(`member_${i}_roll`);
+
+                const nameVal = nameInput ? nameInput.value.trim() : '';
+                const rollVal = rollInput ? rollInput.value.trim() : '';
+
+                if (!nameVal || !rollVal) {
+                    isValid = false;
+                    if (nameInput && !nameVal) nameInput.classList.add('border-red-500');
+                    if (rollInput && !rollVal) rollInput.classList.add('border-red-500');
+                } else {
+                    if (nameInput) nameInput.classList.remove('border-red-500');
+                    if (rollInput) rollInput.classList.remove('border-red-500');
+                    members.push({ name: nameVal, roll: rollVal });
+                }
+            }
+
+            if (!isValid) {
+                errorMessage.textContent = `Please complete all ${count} required student name and roll number fields cleanly.`;
+                errorAlert.classList.remove('hidden');
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtnText.classList.add('hidden');
+            submitBtnSpinner.classList.remove('hidden');
+
+            const newSubmission = {
+                id: 'IST-' + Date.now().toString().slice(-6),
+                timestamp: new Date().toLocaleString(),
+                subject: subject,
+                submissionType: submissionType,
+                groupName: groupName,
+                topic: topic,
+                memberCount: count,
+                members: members
+            };
+
+            responses.unshift(newSubmission);
+
+            // DIRECT POST TO HARDCODED GOOGLE APPS SCRIPT WEB APP URL
+            try {
+                await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(newSubmission)
+                });
+            } catch (err) {
+                console.warn('Google Sheets sync dispatch:', err);
+            }
+
+            // Populate Confirmation Receipt
+            let receiptHtml = `
+                <p><strong>Subject:</strong> ${subject}</p>
+                <p><strong>Submission Type:</strong> <span class="text-amber-700 font-bold">${submissionType}</span></p>
+                <p><strong>Group:</strong> ${groupName}</p>
+                <p><strong>Topic:</strong> ${topic}</p>
+                <p><strong>Members Registered (${count}):</strong></p>
+                <ul class="list-disc pl-4 space-y-0.5 text-[11px] text-gray-600">
+            `;
+            members.forEach(m => {
+                receiptHtml += `<li>${m.name} (${m.roll})</li>`;
+            });
+            receiptHtml += `</ul>`;
+
+            document.getElementById('receiptSummary').innerHTML = receiptHtml;
+
+            // Reset Form and Buttons
+            document.getElementById('presentationForm').reset();
+            renderDynamicMemberFields();
+            
+            submitBtn.disabled = false;
+            submitBtnText.classList.remove('hidden');
+            submitBtnSpinner.classList.add('hidden');
+
+            toggleModal('confirmationModal');
+        }
+
+        function renderResponsesTable() {
+            const tbody = document.getElementById('responsesTableBody');
+            const emptyState = document.getElementById('emptyTableState');
+            
+            document.getElementById('statTotalGroups').textContent = responses.length;
+            
+            let totalStudents = 0;
+            responses.forEach(r => totalStudents += parseInt(r.memberCount || 0));
+            document.getElementById('statTotalStudents').textContent = totalStudents;
+
+            if (responses.length === 0) {
+                tbody.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+
+            const filterSubject = document.getElementById('subjectFilter').value;
+            const search = document.getElementById('searchInput').value.toLowerCase().trim();
+
+            const filtered = responses.filter(r => {
+                const matchesSubject = filterSubject === 'ALL' || r.subject === filterSubject;
+                
+                let matchesSearch = !search || 
+                    r.groupName.toLowerCase().includes(search) ||
+                    r.topic.toLowerCase().includes(search) ||
+                    r.subject.toLowerCase().includes(search) ||
+                    (r.submissionType && r.submissionType.toLowerCase().includes(search));
+
+                if (!matchesSearch && r.members) {
+                    matchesSearch = r.members.some(m => 
+                        m.name.toLowerCase().includes(search) || 
+                        m.roll.toLowerCase().includes(search)
+                    );
+                }
+
+                return matchesSubject && matchesSearch;
+            });
+
+            let html = '';
+            filtered.forEach(r => {
+                let membersList = r.members.map(m => `<span class="inline-block bg-gray-100 rounded px-1.5 py-0.5 text-[10px] mr-1 mb-1 font-medium text-gray-800">${m.name} (${m.roll})</span>`).join('');
+
+                const subType = r.submissionType || 'Presentation';
+                let typeBadgeColor = 'bg-blue-100 text-blue-800';
+                if (subType === 'Article') typeBadgeColor = 'bg-teal-100 text-teal-800';
+                if (subType === 'Group Project') typeBadgeColor = 'bg-purple-100 text-purple-800';
+
+                html += `
+                    <tr class="hover:bg-amber-50/40 transition">
+                        <td class="p-3.5 whitespace-nowrap text-gray-500 text-[11px]">${r.timestamp}</td>
+                        <td class="p-3.5 whitespace-nowrap"><span class="bg-blue-50 text-ist-navy font-bold px-2 py-0.5 rounded text-[10px]">${r.subject}</span></td>
+                        <td class="p-3.5 whitespace-nowrap"><span class="${typeBadgeColor} font-bold px-2 py-0.5 rounded text-[10px]">${subType}</span></td>
+                        <td class="p-3.5 font-bold text-ist-navy whitespace-nowrap">${r.groupName}</td>
+                        <td class="p-3.5 text-gray-600 max-w-xs truncate">${r.topic}</td>
+                        <td class="p-3.5 font-bold text-amber-600">${r.memberCount}</td>
+                        <td class="p-3.5 max-w-md">${membersList}</td>
+                        <td class="p-3.5 text-right whitespace-nowrap">
+                            <button onclick="deleteResponse('${r.id}')" class="text-red-500 hover:text-red-700 p-1">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            tbody.innerHTML = html;
+        }
+
+        function filterResponsesTable() {
+            renderResponsesTable();
+        }
+
+        function deleteResponse(id) {
+            responses = responses.filter(r => r.id !== id);
+            renderResponsesTable();
+        }
+
+        function clearAllResponses() {
+            if (confirm("Are you sure you want to clear local session cache?")) {
+                responses = [];
+                renderResponsesTable();
+            }
+        }
+
+        function exportToCSV() {
+            if (responses.length === 0) {
+                alert("No response data available in current session to export.");
+                return;
+            }
+
+            let csv = "Timestamp,Subject,Submission Type,Group Name,Topic,Member Count,Member Details\n";
+            responses.forEach(r => {
+                const membersStr = r.members.map(m => `${m.name} (${m.roll})`).join(' | ');
+                const typeStr = r.submissionType || 'Presentation';
+                csv += `"${r.timestamp}","${r.subject}","${typeStr}","${r.groupName}","${r.topic}","${r.memberCount}","${membersStr}"\n`;
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            const url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", `IST_Group_Responses_${Date.now()}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function copyGasCode() {
+            const code = document.getElementById('gasCodeText').innerText;
+            const textarea = document.createElement('textarea');
+            textarea.value = code;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            alert("Google Apps Script code copied to clipboard!");
+        }
+
+        function toggleModal(id) {
+            document.getElementById(id).classList.toggle('hidden');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
